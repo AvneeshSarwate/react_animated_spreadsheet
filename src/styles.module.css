@@ -1,0 +1,28 @@
+.displayCell {
+  border: 1px solid black;
+  width: 80px;
+  height: 20px;
+}
+
+.displayCell:hover {
+  background-color: #ffa0a0;
+}
+
+.focused {
+  background-color: red;
+}
+
+.rowLabel {
+  width: 20px;
+}
+
+.colLabel {
+  height: 20px;
+  width: 80px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
