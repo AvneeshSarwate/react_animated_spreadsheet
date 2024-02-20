@@ -1,10 +1,15 @@
 "use client";
 
-import { memo, useState } from 'react';
+import { CSSProperties, memo, useState } from 'react';
 import styles from './styles.module.css'
 import { useSnapshot } from 'valtio';
 
 import { stateProxy, setIsRunning, setSpreadsheetCell, numCells } from './sheetAnimationState'
+
+const contaierStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+}
 
 const range = (low: number, high: number) => {
   return Array.from({ length: high - low + 1 }, (_, i) => low + i);
@@ -90,8 +95,8 @@ export default function AnimatedSpreadSheet() {
     </>
   }
 
-  return <>
-    <div className="grid">
+  return <div>
+    <div className="grid" style={contaierStyle}>
       {rangeMap(-1, numCells, (rowIndex) => (
         <div key={rowIndex} className={styles.row}>
           {rowIndex == -1 ? makeTopLabelRow() : makeDataCellRow(rowIndex)}
@@ -104,5 +109,5 @@ export default function AnimatedSpreadSheet() {
     <br />
     <input type="checkbox" checked={isRunning.val} onChange={(e) => setIsRunning(e.target.checked)} />
     <label htmlFor="isRunning">Run animation</label>
-  </>
+  </div>
 }

@@ -5,7 +5,6 @@ import { proxy } from 'valtio';
 import type p5 from 'p5'
 import { transform } from 'sucrase';
 import * as acorn from 'acorn'
-import { p5defs } from './p5Defs';
 
 const numCells = 5
 
@@ -18,7 +17,7 @@ function initialP5DrawFunction(p5sketch: p5, data: CellValue[][]) {
 }  
 
 // initialze state and return only proxies so you don't accidentally use unlinked initialState
-function initializeSpreadheetData() {
+function initializeSpreadsheetData() {
 
   const displayFormulaGrid: string[][] = Array.from({ length: numCells }).map(() => Array.from({ length: numCells }).map(() => '0'))
 
@@ -77,7 +76,7 @@ function parseEditorString(editorVal: string) {
 
 let sheetChanges: CellChange[] = []
 
-const {stateProxy, hfInstance, sheetId} = initializeSpreadheetData()
+const {stateProxy, hfInstance, sheetId} = initializeSpreadsheetData()
 
 const setIsRunning = (val: boolean) => {
   stateProxy.isRunning.val = val
@@ -123,9 +122,10 @@ function processOutputDataForDisplay(outputData: CellValue[][]) {
 }
 
 let frameCount = 0
+const NTH_FRAME_ANIMATE= 7 //render optimization so we don't have to update the react grid every frame
 function runDrawLoop(time: number) {
   if ((stateProxy.isRunning.val && sheetUsesTime()) || sheetChanges.length > 0) {
-    const updateDisplayVals = frameCount%7 == 0 || sheetChanges.length > 0
+    const updateDisplayVals = frameCount%NTH_FRAME_ANIMATE == 0 || sheetChanges.length > 0
     updateDataSheet(time, sheetChanges, hfInstance, stateProxy, updateDisplayVals)
     sheetChanges = [] //todo bug - why can i not just clear the collection here?
   }

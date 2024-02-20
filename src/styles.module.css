@@ -26,3 +26,7 @@
   flex-direction: row;
 }
 
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
