@@ -1,4 +1,4 @@
-running live at: https://github.com/AvneeshSarwate/react_animated_spreadsheet
+running live at: [https://github.com/AvneeshSarwate/react_animated_spreadsheet](https://avneeshsarwate.github.io/react_animated_spreadsheet/)
 
 A quick experiment in learning React state management and render optimization. 
 
