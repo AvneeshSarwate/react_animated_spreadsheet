@@ -25,7 +25,7 @@ function rangeMap<T>(low: number, num: number, fn: (i: number) => T): T[] {
 
 type CellProps = { rowIndex: number, colIndex: number, cellClass: string, cellOnClick: (rowIndex: number, colIndex: number) => void, cellData: string }
 function Cell({ rowIndex, colIndex, cellClass, cellOnClick, cellData }: CellProps) {
-  console.log("rerender cell", rowIndex, colIndex, cellData)
+  // console.log("rerender cell", rowIndex, colIndex, cellData)
   return <>
     <div className={cellClass} onClick={() => cellOnClick(rowIndex, colIndex)}>
       {cellData}
@@ -39,7 +39,7 @@ const cellPropsEqual = (prev: CellProps, next: CellProps) => {
 const MemoCell = memo(Cell, cellPropsEqual)
 
 export default function AnimatedSpreadSheet() {
-  console.log("top level rerender")
+  // console.log("top level rerender")
 
   const outputDisplayData = useSnapshot(stateProxy.outputDisplayData)
   const isRunning = useSnapshot(stateProxy.isRunning)

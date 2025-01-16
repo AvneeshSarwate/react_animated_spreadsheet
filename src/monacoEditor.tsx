@@ -25,11 +25,6 @@ const MonacoEditorWrapper: React.FC = () => {
     }
 
     if (editorContainerRef.current) {
-      editorRef.current = monaco.editor.create(editorContainerRef.current, {
-        language: 'typescript',
-        theme: 'vs-dark',
-        value: stateProxy.drawFunctionString,
-      })
 
       // Additional configuration
       monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -45,6 +40,12 @@ const MonacoEditorWrapper: React.FC = () => {
       // Add extra libraries if necessary
       const p5uri = "ts:filename/p5.d.ts"
       monaco.languages.typescript.typescriptDefaults.addExtraLib(p5defs, p5uri)
+
+      editorRef.current = monaco.editor.create(editorContainerRef.current, {
+        language: 'typescript',
+        theme: 'vs-dark',
+        value: stateProxy.drawFunctionString,
+      })
     }
 
     return () => {
