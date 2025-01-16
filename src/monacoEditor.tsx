@@ -4,6 +4,8 @@ import React, { CSSProperties, useEffect, useRef } from 'react'
 import * as monaco from 'monaco-editor'
 import { p5defs } from './p5Defs'
 import { parseEditorString, stateProxy } from './sheetAnimationState';
+import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+import TsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
 
 const buttonStyle: CSSProperties = {
   'border': 'black 1px solid',
@@ -18,9 +20,9 @@ const MonacoEditorWrapper: React.FC = () => {
     self.MonacoEnvironment = {
       getWorker: function (_, label) {
         if (label === 'typescript' || label === 'javascript') {
-          return new Worker(new URL('../node_modules/monaco-editor/esm/vs/language/typescript/ts.worker', import.meta.url))
+          return new TsWorker()
         }
-        return new Worker(new URL('../node_modules/monaco-editor/esm/vs/editor/editor.worker', import.meta.url))
+        return new EditorWorker()
       },
     }
 
@@ -46,9 +48,12 @@ const MonacoEditorWrapper: React.FC = () => {
         theme: 'vs-dark',
         value: stateProxy.drawFunctionString,
       })
+
+      console.log("Editor created", editorRef.current)
     }
 
     return () => {
+      console.log("Editor disposed", editorRef.current)
       editorRef.current?.dispose()
     }
   }, [])
